@@ -3,13 +3,19 @@ package com.example.Final_Event;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 @Entity
+@Table(name = "person")
 public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,24 +23,20 @@ public class Person {
 	private Integer age;
 	String first_name;
 	String last_name;
-	@OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="persont_id")
-    private Set<Person_Event> person_events;
-    
-    
-	public Set<Person_Event> getPerson_events() {
-		return person_events;
-	}
-	public void setPerson_events(Set<Person_Event> person_events) {
-		this.person_events = person_events;
-	}
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.DETACH
+            })
+    @JoinTable(name = "person_event",
+            joinColumns = { @JoinColumn(name = "person_id") },
+            inverseJoinColumns = { @JoinColumn(name = "event_id") })
+    private Set<Event> event;
 	public Integer getPerson_id() {
 		return person_id;
 	}
 	public void setPerson_id(Integer person_id) {
 		this.person_id = person_id;
 	}
-	
 	public Integer getAge() {
 		return age;
 	}
@@ -53,6 +55,15 @@ public class Person {
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
 	}
+	public Set<Event> getEvent() {
+		return event;
+	}
+	public void setEvent(Set<Event> event) {
+		this.event = event;
+	}
 	
+	
+    
+
 
 }

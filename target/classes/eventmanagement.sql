@@ -36,7 +36,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (5,'22-10-2021','Dance'),(6,'22-12-2021','singing'),(7,'22-06-2021','Games');
+INSERT INTO `event` VALUES (1,'22-10-2021','Dance'),(2,'22-10-2021','Singing'),(3,'22-10-2021','Games');
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +58,7 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (1),(14);
+INSERT INTO `hibernate_sequence` VALUES (6);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES (1,32,'Srinath','murugula'),(4,32,'Srikar','murugula'),(7,32,'Srivardhini','murugula');
+INSERT INTO `person` VALUES (4,32,'Srinath','murugula'),(5,32,'srikar','murugula');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,12 +96,12 @@ DROP TABLE IF EXISTS `person_event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `person_event` (
-  `id` int(11) NOT NULL,
-  `event_id` int(11) DEFAULT NULL,
-  `persont_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK778ge2iyr35dmr6bv8w7jbyt1` (`persont_id`),
-  CONSTRAINT `FK778ge2iyr35dmr6bv8w7jbyt1` FOREIGN KEY (`persont_id`) REFERENCES `person` (`person_id`)
+  `person_id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  PRIMARY KEY (`person_id`,`event_id`),
+  KEY `FK7s18sygoujaxh0gt4s9kwcjih` (`event_id`),
+  CONSTRAINT `FKn76hj9eu72c9ig44bjqhyhiyb` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`),
+  CONSTRAINT `FK7s18sygoujaxh0gt4s9kwcjih` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -111,35 +111,8 @@ CREATE TABLE `person_event` (
 
 LOCK TABLES `person_event` WRITE;
 /*!40000 ALTER TABLE `person_event` DISABLE KEYS */;
-INSERT INTO `person_event` VALUES (2,6,1),(3,5,1),(5,5,4),(6,7,4),(8,7,7),(10,7,NULL),(11,7,NULL),(12,7,NULL);
+INSERT INTO `person_event` VALUES (4,1),(5,1),(4,3);
 /*!40000 ALTER TABLE `person_event` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(64) NOT NULL,
-  `role` varchar(45) NOT NULL,
-  `enabled` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'srinath','$2a$10$XptfskLsT1l/bRTLRiiCgejHqOpgXFreUnNUa35gJdCr2v2QbVFzu','ROLE_USER',1),(2,'admin','$2a$10$zxvEq8XzYEYtNjbkRsJEbukHeRx3XS6MDXHMu8cNuNsRfZJWwswDy','ROLE_ADMIN',1);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -151,4 +124,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-16 19:43:09
+-- Dump completed on 2021-07-20 20:06:16

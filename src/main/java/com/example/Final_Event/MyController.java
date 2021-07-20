@@ -18,6 +18,12 @@ public class MyController {
 	@Autowired
 	private EventRepository rp;
 	
+	@GetMapping("/")
+	public String getEvents()
+	{
+		return "hello";
+	}
+	
 	@GetMapping("/an")
 	public List<Event> getEvent()
 	{
